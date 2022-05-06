@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1 style="text-align:center"> SNAPCHAT FILTERS </h1>
+      <p style="text-align:center;"> Apply Filters to your face <p>
+    </div>
+    <div>
+      <center><img src="{{ url_for('video') }}" width="70%"/></center>
+    </div>
+    <br>
+    <label for="image_file">Select video(s)</label>
+    <input class="btn btn-warning" type="file" id="image_file" name="myfile" multiple>
+    <br>
+    <button class="btn btn-success" onclick="performOCR()"> Apply Filter </button>
+    <br>
+  </div>
+</body>
+
+
+<script>
+  // function performOCR() {
+  //   var files = document.getElementById("image_file").files
+  //   var formData = new FormData();
+  //   var endpoint = '/extract_text';
+  //   formData.append('image', files[0])
+
+  //   $.ajax({
+  //       type: 'POST',
+  //       url: endpoint,
+  //       data: formData,
+  //       contentType: false,
+  //       cache: false,
+  //       processData: false,
+  //       success: function(data) {
+  //         swal("Converted Text", data.text);
+  //       }
+  //   });
+  // }
+
+
+</script>
