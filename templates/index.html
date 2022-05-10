@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <body>
@@ -10,37 +10,71 @@
       <p style="text-align:center;"> Apply Filters to your face <p>
     </div>
     <div>
-      <center><img src="{{ url_for('video') }}" width="70%"/></center>
+      <center><img src="{{ url_for('video') }}" width="60%"/></center>
     </div>
     <br>
+    <form>
+      Select your favorite filter:
+      <select id="myList" onchange="changeFilter()">
+        <option></option>
+        <option>anonymous</option>
+        <option>anime</option>  
+        <option>dog</option>
+        <option>cat</option>
+        <option>jason-joker</option>
+        <option>gold-crown</option>
+        <option>green-carnival</option>
+        <option>flower-carnival</option>
+      </select>
+    </form>
+    <br>
     <label for="image_file">Select video(s)</label>
-    <input class="btn btn-warning" type="file" id="image_file" name="myfile" multiple>
+    <input class="btn btn-warning" type="file" id="vid_file" name="myfile" multiple>
     <br>
-    <button class="btn btn-success" onclick="performOCR()"> Apply Filter </button>
-    <br>
+    <button class="btn btn-success" onclick="applyFilter()"> Apply Filter </button>
   </div>
 </body>
 
 
 <script>
-  // function performOCR() {
-  //   var files = document.getElementById("image_file").files
-  //   var formData = new FormData();
-  //   var endpoint = '/extract_text';
-  //   formData.append('image', files[0])
+  function changeFilter(){
+    // var files = document.getElementById("image_file").files
+    var mylist = document.getElementById("myList");
+    var formData = new FormData();
+    var endpoint = '/submitform';
+    formData.append('filter', mylist.options[mylist.selectedIndex].text);
 
-  //   $.ajax({
-  //       type: 'POST',
-  //       url: endpoint,
-  //       data: formData,
-  //       contentType: false,
-  //       cache: false,
-  //       processData: false,
-  //       success: function(data) {
-  //         swal("Converted Text", data.text);
-  //       }
-  //   });
-  // }
+    $.ajax({
+        type: 'POST',
+        url: endpoint,
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(data) {
+          swal("Selected Filter", data.filter);
+        }
+    });
+  }
+
+  function applyFilter(){
+    var files = document.getElementById("vid_file").files
+    var formData = new FormData();
+    var endpoint = '/analyze_video';
+    formData.append('vid', files[0]);
+
+    $.ajax({
+        type: 'POST',
+        url: endpoint,
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(data) {
+          swal("Selected Video", data.filename);
+        }
+    });
+  }
 
 
 </script>
