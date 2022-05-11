@@ -167,9 +167,3 @@ def load_filter(filter_name="dog"):
         multi_filter_runtime.append(temp_dict)
 
     return filters, multi_filter_runtime
-
-
-
-
-if __name__=="__main":
-    pass

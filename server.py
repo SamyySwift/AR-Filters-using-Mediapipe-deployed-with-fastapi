@@ -4,6 +4,8 @@ from fastapi.responses import StreamingResponse
 import cv2
 import shutil
 import os
+
+import uvicorn
 from apply_filter import *
 
 
@@ -195,3 +197,7 @@ def show_frames():
                 frame = buffer.tobytes()
                 yield(b'--frame\r\n'
                     b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+if __name__ == '__main__':
+    uvicorn.run(app, host='127.0.0.1', port=8080)
